@@ -12,3 +12,6 @@ Użytkownik ma podać:
 - CN - czas nadejścia procesu
 - CFP - czas fazy procesora
 - priorytet danego procesu
+
+Język programowania: Python
+Proszę też dawać w programie polskie komenty :)
