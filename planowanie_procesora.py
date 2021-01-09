@@ -3,16 +3,24 @@ def wyswietl_tabelke(tab):
         print(element, end=" | ")
     print()
 
-        
+koniec = 0       
 
 print("Witaj w algorytmie planowania przydziału procesora")
 print("Wybierz jaki algorytm chcesz użyć:")
-print("FCFS")
-print("SJF")
-print("SRT") # wywłaszczeniowy
-print("RR") # wywłaszczneniowy
+print("1.FCFS")
+print("2.SJF")
+print("3.SRT") # wywłaszczeniowy
+print("4.RR") # wywłaszczneniowy
 
-ilosc_procesow = int(input("Podaj ile masz procesów:"))
+while( koniec != 1 ):
+    try:
+        wybor = int(input(">>>>:"))
+        ilosc_procesow = int(input("Podaj ile masz procesów:"))
+        koniec = 1
+    except:
+        print("Nie podałeś inta")
+
+    
 print()
 
 # definiowanie rozmiarów list
