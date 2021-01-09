@@ -1,0 +1,14 @@
+# Algorytmy-planowania-procesora
+
+FCFS
+SJF
+STR
+RR
+
+Pasuje napisać te algorytymy
+Użytkownik ma podać: 
+- jaki to algorytm wybiera ( w zależności od algorytmu będzie wywłaszczanie lub nie )
+- ile ma procesów
+- CN - czas nadejścia procesu
+- CFP - czas fazy procesora
+- priorytet danego procesu
