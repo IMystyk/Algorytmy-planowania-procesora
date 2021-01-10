@@ -1,12 +1,16 @@
 def roundRobin(processess, arrivalTime, burstTime, priorities):
     #  Realizes round robin algorithm
     timeQuantum = int(input("Podaj kwant czasu:"))
+    prioritySetting = int(input("Czy piorytet 1 jest mniejszy od 2? (1 - nie, 0 - tak):"))
     baseBurtTime = burstTime.copy()
     n = len(processess)
     time = 0
     readyProcesses = []
     privilegedProcesses = []
-    priority = -1
+    if prioritySetting:
+        priority = -1
+    else:
+        priority = 99999999
     lastDone = -1
     waitTime = []
     completionTime = [0, 0, 0, 0, 0]
@@ -17,14 +21,24 @@ def roundRobin(processess, arrivalTime, burstTime, priorities):
                 readyProcesses.append(x)
         for x in readyProcesses:
             # Check priorities of current processes
-            if priorities[x] > priority:
-                priority = priorities[x]
-                privilegedProcesses.clear()
-                privilegedProcesses.append(x)
-            elif priorities[x] == priority:
-                privilegedProcesses.append(x)
+            if prioritySetting:
+                if priorities[x] > priority:
+                    priority = priorities[x]
+                    privilegedProcesses.clear()
+                    privilegedProcesses.append(x)
+                elif priorities[x] == priority:
+                    privilegedProcesses.append(x)
+                else:
+                    continue
             else:
-                continue
+                if priorities[x] < priority:
+                    priority = priorities[x]
+                    privilegedProcesses.clear()
+                    privilegedProcesses.append(x)
+                elif priorities[x] == priority:
+                    privilegedProcesses.append(x)
+                else:
+                    continue
         for x in privilegedProcesses:
             # Provide one process with CPU time
             count = len(privilegedProcesses)
@@ -53,7 +67,10 @@ def roundRobin(processess, arrivalTime, burstTime, priorities):
                     print(time)
                 privilegedProcesses.clear()
                 readyProcesses.clear()
-                priority = -1
+                if prioritySetting:
+                    priority = -1
+                else:
+                    priority = 99999999
                 break
         for x in burstTime:
             if x != 0:
