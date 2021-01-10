@@ -1,5 +1,5 @@
-def fcfs(processess, arrivalTime, burstTime, priorities):
-    #  Realizes fcfs algorithm
+def sjf(processess, arrivalTime, burstTime, priorities):
+    # Realizes sjf algorithm
     n = len(processess)
     time = 0
     prioritySetting = int(input("Czy piorytet 1 jest mniejszy od 2? (1 - tak, 0 - nie):"))
@@ -45,9 +45,8 @@ def fcfs(processess, arrivalTime, burstTime, priorities):
         nextProcess = privilegedProcesses[0]
         for x in privilegedProcesses:
             # Check which process arrived first
-            if arrivalTime[nextProcess] > arrivalTime[x]:
+            if burstTime[nextProcess] > burstTime[x]:
                 nextProcess = x
-
         waitTime[nextProcess] = time
         print(processess[nextProcess], end=' ')
         print(time, end='-')
@@ -74,9 +73,8 @@ def fcfs(processess, arrivalTime, burstTime, priorities):
     sum = 0
     for x in range(n):
         sum += (waitTime[x] - arrivalTime[x])
-    print("\nTo = ", sum/n)
+    print("\nTo = ", sum / n)
     sum = 0
     for x in range(n):
         sum += (completionTime[x] - arrivalTime[x])
-    print("Tcp = ", sum/n)
-
+    print("Tcp = ", sum / n)
