@@ -5,7 +5,6 @@ def sjf(processess, arrivalTime, burstTime, priorities):
     prioritySetting = int(input("Czy piorytet 1 jest mniejszy od 2? (1 - tak, 0 - nie):"))
     readyProcesses = []
     privilegedProcesses = []
-    waitTime = []
     if prioritySetting:
         priority = -1
     else:
@@ -44,7 +43,7 @@ def sjf(processess, arrivalTime, burstTime, priorities):
                     continue
         nextProcess = privilegedProcesses[0]
         for x in privilegedProcesses:
-            # Check which process arrived first
+            # Check which process has shortest burst time
             if burstTime[nextProcess] > burstTime[x]:
                 nextProcess = x
         waitTime[nextProcess] = time

@@ -1,6 +1,11 @@
-def fcfs(processess, arrivalTime, burstTime, priorities):
-    #  Realizes fcfs algorithm
+def srt(processess, arrivalTime, burstTime, priorities):
+    # Realizes srt algorithm, it's a bit rough, but it works
     n = len(processess)
+    times = arrivalTime.copy()
+    times.append(9999999)
+    times.sort()
+    timeCounter = 0
+    baseBurstTime = burstTime.copy()
     time = 0
     prioritySetting = int(input("Czy piorytet 1 jest mniejszy od 2? (1 - tak, 0 - nie):"))
     readyProcesses = []
@@ -19,6 +24,8 @@ def fcfs(processess, arrivalTime, burstTime, priorities):
     while True:
         for x in range(n):
             # Check which processes have already arrived
+            if arrivalTime[x] <= time:
+                timeCounter += 1
             if arrivalTime[x] <= time and burstTime[x] != 0:
                 readyProcesses.append(x)
         for x in readyProcesses:
@@ -43,23 +50,30 @@ def fcfs(processess, arrivalTime, burstTime, priorities):
                     continue
         nextProcess = privilegedProcesses[0]
         for x in privilegedProcesses:
-            # Check which process arrived first
-            if arrivalTime[nextProcess] > arrivalTime[x]:
+            # Check which process has shortest remaining burst time
+            if burstTime[nextProcess] > burstTime[x]:
                 nextProcess = x
 
-        waitTime[nextProcess] = time
+        if baseBurstTime[nextProcess] == burstTime[nextProcess]:
+            waitTime[nextProcess] = time
         print(processess[nextProcess], end=' ')
         print(time, end='-')
-        time += burstTime[nextProcess]
-        completionTime[nextProcess] = time
-        print(time)
-        burstTime[nextProcess] = 0
+        if burstTime[nextProcess] <= (times[timeCounter] - time):
+            time += burstTime[nextProcess]
+            burstTime[nextProcess] = 0
+            completionTime[nextProcess] = time
+            print(time)
+        else:
+            burstTime[nextProcess] -= (times[timeCounter] - time)
+            time += (times[timeCounter] - time)
+            print(time)
         if prioritySetting:
             priority = -1
         else:
             priority = 99999999
         readyProcesses.clear()
         privilegedProcesses.clear()
+        timeCounter = 0
 
         for x in burstTime:
             if x != 0:
@@ -69,13 +83,11 @@ def fcfs(processess, arrivalTime, burstTime, priorities):
                 end = 1
         if end:
             break
-
     sum = 0
     for x in range(n):
         sum += (waitTime[x] - arrivalTime[x])
-    print("\nTo = ", sum/n)
+    print("\nTo = ", sum / n)
     sum = 0
     for x in range(n):
         sum += (completionTime[x] - arrivalTime[x])
-    print("Tcp = ", sum/n)
-
+    print("Tcp = ", sum / n)
