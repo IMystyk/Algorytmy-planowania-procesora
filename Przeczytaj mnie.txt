@@ -14,4 +14,4 @@ Użytkownik ma podać:
 - priorytet danego procesu
 
 Język programowania: Python
-Proszę też dawać w programie polskie komenty :)
+Please provide your code with additional english comments
