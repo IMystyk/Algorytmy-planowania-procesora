@@ -1,9 +1,21 @@
+import RoundRobin
+
+
 def wyswietl_tabelke(tab):
     for element in tab: # wypisanie elementów tablicy
         print(element, end=" | ")
     print()
 
-koniec = 0       
+koniec = 0
+
+# testing roundRobin algorithm
+# processes = ["P1", "P2", "P3", "P4", "P5"]
+# CFP = [10, 3, 4, 7, 5]
+# CN = [0, 20, 3, 10, 4]
+# prior = [1, 1, 1, 1, 1]
+#
+# RoundRobin.roundRobin(processes, CN, CFP, prior)
+
 
 print("Witaj w algorytmie planowania przydziału procesora")
 print("Wybierz jaki algorytm chcesz użyć:")
