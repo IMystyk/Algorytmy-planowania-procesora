@@ -2,7 +2,8 @@ def wyswietl_tabelke(tab):
     for element in tab: # wypisanie elementów tablicy
         print(element, end=" | ")
     print()
-
+#English names
+    
 koniec = 0       
 
 print("Witaj w algorytmie planowania przydziału procesora")
