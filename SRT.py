@@ -28,31 +28,38 @@ def srt(processess, arrivalTime, burstTime, priorities):
                 timeCounter += 1
             if arrivalTime[x] <= time and burstTime[x] != 0:
                 readyProcesses.append(x)
+        # for x in readyProcesses:
+        #     # Check priorities of current processes
+        #     if prioritySetting:
+        #         if priorities[x] > priority:
+        #             priority = priorities[x]
+        #             privilegedProcesses.clear()
+        #             privilegedProcesses.append(x)
+        #         elif priorities[x] == priority:
+        #             privilegedProcesses.append(x)
+        #         else:
+        #             continue
+        #     else:
+        #         if priorities[x] < priority:
+        #             priority = priorities[x]
+        #             privilegedProcesses.clear()
+        #             privilegedProcesses.append(x)
+        #         elif priorities[x] == priority:
+        #             privilegedProcesses.append(x)
+        #         else:
+        #             continue
+        nextProcess = readyProcesses[0]
         for x in readyProcesses:
-            # Check priorities of current processes
-            if prioritySetting:
-                if priorities[x] > priority:
-                    priority = priorities[x]
-                    privilegedProcesses.clear()
-                    privilegedProcesses.append(x)
-                elif priorities[x] == priority:
-                    privilegedProcesses.append(x)
-                else:
-                    continue
-            else:
-                if priorities[x] < priority:
-                    priority = priorities[x]
-                    privilegedProcesses.clear()
-                    privilegedProcesses.append(x)
-                elif priorities[x] == priority:
-                    privilegedProcesses.append(x)
-                else:
-                    continue
-        nextProcess = privilegedProcesses[0]
-        for x in privilegedProcesses:
             # Check which process has shortest remaining burst time
             if burstTime[nextProcess] > burstTime[x]:
                 nextProcess = x
+            elif burstTime[nextProcess] == burstTime[x]:
+                if prioritySetting:
+                    if priorities[nextProcess] < priorities[x]:
+                        nextProcess = x
+                else:
+                    if priorities[nextProcess] > priorities[x]:
+                        nextProcess = x
 
         if baseBurstTime[nextProcess] == burstTime[nextProcess]:
             waitTime[nextProcess] = time

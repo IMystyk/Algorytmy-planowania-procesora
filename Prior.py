@@ -1,26 +1,21 @@
-def roundRobin(processess, arrivalTime, burstTime, priorities):
-    #  Realizes round robin algorithm
-    timeQuantum = int(input("Podaj kwant czasu:"))
-    prioritySetting = int(input("Czy piorytet 1 jest mniejszy od 2? (1 - tak, 0 - nie):"))
-    baseBurtTime = burstTime.copy()
+def prior(processess, arrivalTime, burstTime, priorities):
+    #  Realizes priority algorithm (based on fcfs)
     n = len(processess)
-    # Force same priorities, since that's how our test is gonna work
-    for x in range(n):
-        priorities[x] = 0
     time = 0
+    prioritySetting = int(input("Czy piorytet 1 jest mniejszy od 2? (1 - tak, 0 - nie):"))
     readyProcesses = []
     privilegedProcesses = []
     if prioritySetting:
         priority = -1
     else:
         priority = 99999999
-    lastDone = -1
     waitTime = []
     for x in range(n):
         waitTime.append(0)
     completionTime = []
     for x in range(n):
         completionTime.append(0)
+
     while True:
         for x in range(n):
             # Check which processes have already arrived
@@ -46,39 +41,26 @@ def roundRobin(processess, arrivalTime, burstTime, priorities):
                     privilegedProcesses.append(x)
                 else:
                     continue
+        nextProcess = privilegedProcesses[0]
         for x in privilegedProcesses:
-            # Provide one process with CPU time
-            count = len(privilegedProcesses)
-            last = privilegedProcesses[-1]
-            if count == 1:
-                lastDone = -1
-            if x <= lastDone and x != last:
-                continue
-            else:
-                if x == last and x <= lastDone:
-                    x = privilegedProcesses[0]
-                lastDone = x
-                if baseBurtTime[x] == burstTime[x]:
-                    waitTime[x] = time
-                print(processess[x], end=' ')
-                if burstTime[x] <= timeQuantum:
-                    print(time, end='-')
-                    time += burstTime[x]
-                    burstTime[x] = 0
-                    completionTime[x] = time
-                    print(time)
-                else:
-                    print(time, end='-')
-                    time += timeQuantum
-                    burstTime[x] -= timeQuantum
-                    print(time)
-                privilegedProcesses.clear()
-                readyProcesses.clear()
-                if prioritySetting:
-                    priority = -1
-                else:
-                    priority = 99999999
-                break
+            # Check which process arrived first
+            if arrivalTime[nextProcess] > arrivalTime[x]:
+                nextProcess = x
+
+        waitTime[nextProcess] = time
+        print(processess[nextProcess], end=' ')
+        print(time, end='-')
+        time += burstTime[nextProcess]
+        completionTime[nextProcess] = time
+        print(time)
+        burstTime[nextProcess] = 0
+        if prioritySetting:
+            priority = -1
+        else:
+            priority = 99999999
+        readyProcesses.clear()
+        privilegedProcesses.clear()
+
         for x in burstTime:
             if x != 0:
                 end = 0
@@ -96,7 +78,4 @@ def roundRobin(processess, arrivalTime, burstTime, priorities):
     for x in range(n):
         sum += (completionTime[x] - arrivalTime[x])
     print("Tcp = ", sum/n)
-
-
-
 

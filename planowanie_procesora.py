@@ -1,4 +1,9 @@
 import RoundRobin
+import FCFS
+import SJF
+import SRT
+import EXP
+import Prior
 
 
 def wyswietl_tabelke(tab):
@@ -8,13 +13,17 @@ def wyswietl_tabelke(tab):
 
 koniec = 0
 
-# testing roundRobin algorithm
-# processes = ["P1", "P2", "P3", "P4", "P5"]
-# CFP = [10, 3, 4, 7, 5]
-# CN = [0, 20, 3, 10, 4]
-# prior = [1, 1, 1, 1, 1]
-#
-# RoundRobin.roundRobin(processes, CN, CFP, prior)
+# testing
+processes = ["P1", "P2", "P3", "P4", "P5"]
+CFP = [10, 3, 4, 7, 5]
+CN = [0, 20, 3, 10, 4]
+prior = [1, 1, 1, 1, 1]
+
+#SRT.srt(processes,CN, CFP, prior)
+#FCFS.fcfs(processes, CN, CFP, prior)
+#SJF.sjf(processes, CN, CFP, prior)
+#EXP.exp(processes, CN, CFP, prior)
+#RoundRobin.roundRobin(processes, CN, CFP, prior)
 
 
 print("Witaj w algorytmie planowania przydziału procesora")
